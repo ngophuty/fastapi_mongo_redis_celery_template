@@ -1,5 +1,5 @@
 from redis import Redis
-from src.settings import settings
+from src.app_settings import settings
 
 
 async def starup_connect_redis():

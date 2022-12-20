@@ -1,5 +1,5 @@
 from src.database import startup_connect_mongodb, starup_connect_redis
-from src.settings import settings
+from src.app_settings import settings
 
 
 async def event_01_connect_mongodb():

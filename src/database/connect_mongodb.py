@@ -1,7 +1,7 @@
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
 from umongo.frameworks import MotorAsyncIOInstance
-from src.settings import settings
+from src.app_settings import settings
 
 
 async def startup_connect_mongodb(database_name: str):     

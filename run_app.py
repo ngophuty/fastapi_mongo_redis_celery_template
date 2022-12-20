@@ -1,5 +1,5 @@
 import uvicorn
-from src.settings import settings
+from src.app_settings import settings
 
 if __name__ == "__main__":
     uvicorn.run(

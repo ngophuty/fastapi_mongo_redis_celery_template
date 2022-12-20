@@ -1,6 +1,6 @@
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
-from src.settings import settings
+from src.app_settings import settings
 from src.middlewares import BruteForceDefenderMiddleware
 
 
