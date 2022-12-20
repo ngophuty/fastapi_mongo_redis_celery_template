@@ -1,11 +1,13 @@
 from . import FastApiSettings, MongoDBSettings, RedisSettings
-
+from .base_settings import BaseSettingsMixin
+from .proxy_settings import ProxySettings
 
 class AppSettings(
     FastApiSettings,
     MongoDBSettings,
     RedisSettings,
-    # BaseSettingsMixin
+    BaseSettingsMixin,
+    ProxySettings
 ):
 
     class Config:
@@ -14,4 +16,4 @@ class AppSettings(
 
 
 settings = AppSettings(_env_file='.env')
-# settings.setup_proxy()
+settings.setup_proxy()

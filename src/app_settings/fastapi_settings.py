@@ -9,7 +9,7 @@ class FastApiSettings(BaseSettings):
     FAPP_PORT: Optional[str] = '8000'
     FAPP_RELOAD: bool = False
 
-    FAPP_MIDDLEWARE_ENABLE_BurteMiddleware: bool = True
+    FAPP_MIDDLEWARE_ENABLE_BurteMiddleware: bool = False
     FAPP_MIDDLEWARE_ENABLE_CORSMiddleware: bool = True
     FAPP_MIDDLEWARE_CORS_ALLOW_ORIGINS: List[str] = ['*']
     FAPP_MIDDLEWARE_CORS_ALLOW_METHODS: List[str] = ['*']

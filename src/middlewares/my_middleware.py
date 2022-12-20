@@ -1,7 +1,7 @@
 from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 from src.app_settings import settings
-from src.middlewares import BruteForceDefenderMiddleware
+from .brute_force_middleware import BruteForceDefenderMiddleware
 
 
 middleware_controler = (
@@ -21,7 +21,11 @@ middleware_controler = (
     },
     {
         'enable': settings.FAPP_MIDDLEWARE_ENABLE_BurteMiddleware,
-        'middleware': Middleware(BruteForceDefenderMiddleware)
+        'middleware': Middleware(
+            BruteForceDefenderMiddleware,
+            request_time_limit = 60,
+            number_request_in_minute = 30
+            )
     }
 
 )

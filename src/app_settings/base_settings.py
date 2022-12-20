@@ -3,18 +3,18 @@ import os
 SELECT_ENV_NAME = os.environ.get('APP_ENV_NAME')
 
 class BaseSettingsMixin:
-    async def select_env(self) -> str:
+    def select_env(self) -> str:
         if SELECT_ENV_NAME in ('dev', 'stg', 'prod', 'local', 'redirect'):
             env_name = f'{SELECT_ENV_NAME}.env'
         else:
             env_name = '.env'
         return env_name
     
-    async def setup_proxy(self):
-        await self.add_custom_proxy()
-        await self.show_proxy_configuration()
+    def setup_proxy(self):
+        self.add_custom_proxy()
+        self.show_proxy_configuration()
 
-    async def add_custom_proxy(self):
+    def add_custom_proxy(self):
         if (
             not hasattr(self, 'APP_USE_PROXY')
             or not hasattr(self, 'APP_PROXY_ADD')
@@ -37,7 +37,7 @@ class BaseSettingsMixin:
                 os.environ['no_proxy'] = getattr(self, 'APP_NO_PROXY')
     
 
-    async def show_proxy_configuration(self):
+    def show_proxy_configuration(self):
         print('*'*50)
         print(f'http_proxy {os.environ.get("http_proxy")}')
         print(f'https_proxy {os.environ.get("https_proxy")}')

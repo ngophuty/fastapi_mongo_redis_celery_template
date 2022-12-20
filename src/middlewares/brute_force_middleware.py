@@ -2,15 +2,18 @@ from fastapi import Request
 from typing import Any
 from fastapi.responses import PlainTextResponse
 from src.database.connect_redis import starup_connect_redis
+from starlette.types import ASGIApp
 
 
 class BruteForceDefenderMiddleware:
 
     def __init__(
         self,
+        app: ASGIApp,
         request_time_limit: int = 60,
         number_request_in_minute: int = 30,
     ) -> None:
+        self.app = app
         self.request_time_limit = request_time_limit
         self.number_request_in_minute = number_request_in_minute
 
