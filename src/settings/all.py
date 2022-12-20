@@ -1,4 +1,3 @@
-
 from . import FastApiSettings, MongoDBSettings, RedisSettings
 
 
@@ -9,6 +8,7 @@ class AppSettings(
 ):
 
     class Config:
+        case_sensitive = True
         validate_assignment = True 
 
 

@@ -2,7 +2,7 @@ import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
 from umongo.frameworks import MotorAsyncIOInstance
 from src.settings import settings
-from typing import Optional
+
 
 async def startup_connect_mongodb(database_name: str):     
     MONGO_URI = f'mongodb://{settings.MONGODB_HOST}:{settings.MONGODB_PORT}/'

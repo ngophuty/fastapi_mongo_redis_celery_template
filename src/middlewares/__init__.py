@@ -1,1 +1,2 @@
 from .my_middleware import middleware
+from .brute_force_middleware import BruteForceDefenderMiddleware
