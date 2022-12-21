@@ -13,6 +13,7 @@ class BaseSettingsMixin:
     def setup_proxy(self):
         self.add_custom_proxy()
         self.show_proxy_configuration()
+        
 
     def add_custom_proxy(self):
         if (

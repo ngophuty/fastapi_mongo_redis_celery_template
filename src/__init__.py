@@ -1,1 +1,1 @@
-from .app_settings import settings
+from .celery import setup_celery_app
