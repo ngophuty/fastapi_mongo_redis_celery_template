@@ -34,7 +34,9 @@ class BaseSettingsMixin:
                 os.environ[i] = getattr(self, "APP_USE_PROXY")
         if getattr(self, "APP_NO_PROXY"):
             if no_proxy:
-                os.environ["no_proxy"] = no_proxy + "," + getattr(self, "APP_NO_PROXY")
+                os.environ["no_proxy"] = (
+                    no_proxy + "," + getattr(self, "APP_NO_PROXY")
+                )  # noqa
             else:
                 os.environ["no_proxy"] = getattr(self, "APP_NO_PROXY")
 

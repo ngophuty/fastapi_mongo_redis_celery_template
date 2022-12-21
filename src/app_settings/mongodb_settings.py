@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import List, Optional, Union
+from typing import Union
 
 from pydantic import BaseSettings
 

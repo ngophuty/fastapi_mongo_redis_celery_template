@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
-from .celery import setup_celery_app
-from .routers import list_router
+from .celery import setup_celery_app  # noqa
+from .routers import list_router  # noqa

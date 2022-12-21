@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .my_middleware import middleware
+from .my_middleware import middleware  # noqa

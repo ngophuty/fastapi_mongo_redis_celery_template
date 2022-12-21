@@ -33,5 +33,5 @@ middleware_controler = (
 middleware = [
     config.get("middleware")
     for config in middleware_controler
-    if config.get("enable") == True
+    if config.get("enable") is True
 ]
