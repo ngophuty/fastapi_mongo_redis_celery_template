@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .views import router  # noqa
+from .views import router
