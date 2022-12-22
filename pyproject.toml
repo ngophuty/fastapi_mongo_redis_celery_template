@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "my-project"
+version = "0.1.0"
+description = ""
+authors = ["ngophuty <ngoputy233@gmail.com>"]
+readme = "README.md"
+packages = [{include = "my_project"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.88.0"
+uvicorn = "^0.20.0"
+celery = "^5.2.7"
+pydantic = {extras = ["dotenv"], version = "^1.10.2"}
+motor = "^3.1.1"
+umongo = "^3.1.0"
+redis = "^4.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
