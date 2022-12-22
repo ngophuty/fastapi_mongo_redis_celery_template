@@ -1,1 +1,2 @@
-from .response import ErrorResponseException
+# -*- coding: utf-8 -*-
+from .response import ErrorResponseException  # noqa
