@@ -4,6 +4,6 @@ from fastapi import APIRouter
 router = APIRouter(prefix="/app")
 
 
-@router.get("")
-def well_come():
-    return {"well come to app"}
+@router.post('/sign_in')
+async def sign_in():
+    pass
