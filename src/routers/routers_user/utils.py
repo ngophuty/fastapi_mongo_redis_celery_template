@@ -1,11 +1,29 @@
 import bcrypt
 import jwt
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPBearer, OAuth2PasswordBearer
 from datetime import datetime, timedelta
 from src.schemas.user import CreateUser, UserLogin, RequestUserProfile, DeletetProfile
 from src.models.user import User, UserProfile
 from src.exceptions import ErrorResponseException
 from src.app_settings import settings
 
+reusable_oauth2 = HTTPBearer(
+    scheme_name='Authorization'
+)
+
+
+def validate_token(http_authorization_credentials=Depends(reusable_oauth2)) -> str:
+    try:
+        payload = jwt.decode(http_authorization_credentials.credentials, settings.SECRET_KEY, algorithms=[settings.SECURITY_ALGORITHM])
+        if payload.get('exp') < int(datetime.now().timestamp()):
+            raise HTTPException(status_code=403, detail="Token expired")
+        return payload.get('username')
+    except:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Could not validate credentials",
+        )
 
 async def create_user(user: CreateUser):
     check_email = await User.find_one({'email': user.email})
