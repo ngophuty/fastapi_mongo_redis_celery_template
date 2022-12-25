@@ -15,3 +15,6 @@ class FastApiSettings(BaseSettings):
     FAPP_MIDDLEWARE_CORS_ALLOW_ORIGINS: List[str] = ["*"]
     FAPP_MIDDLEWARE_CORS_ALLOW_METHODS: List[str] = ["*"]
     FAPP_MIDDLEWARE_CORS_ALLOW_HEADERES: List[str] = ["*"]
+
+    SECRET_KEY: str
+    SECURITY_ALGORITHM: str = "HS256"

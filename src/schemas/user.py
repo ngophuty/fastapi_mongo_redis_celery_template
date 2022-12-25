@@ -31,3 +31,14 @@ class CreateUser(BaseModel):
 class UserLogin(BaseModel):
     username: str
     password: str
+
+
+class RequestUserProfile(BaseModel):
+    full_name: Optional[str]
+    phone_number: Optional[str]
+    email: Optional[str]
+    address: Optional[str]
+
+
+class DeletetProfile(BaseModel):
+    email: Optional[str]

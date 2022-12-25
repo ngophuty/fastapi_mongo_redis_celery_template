@@ -1,10 +1,16 @@
 import bcrypt
-from src.schemas.user import CreateUser, UserLogin
-from src.models.user import User
+import jwt
+from datetime import datetime, timedelta
+from src.schemas.user import CreateUser, UserLogin, RequestUserProfile, DeletetProfile
+from src.models.user import User, UserProfile
 from src.exceptions import ErrorResponseException
+from src.app_settings import settings
 
 
 async def create_user(user: CreateUser):
+    check_email = await User.find_one({'email': user.email})
+    if check_email:
+        raise ErrorResponseException(data='email has been used')
     check_user = await User.find_one({'username': user.username})
     if check_user:
         raise ErrorResponseException(data='User already exists')
@@ -15,6 +21,7 @@ async def create_user(user: CreateUser):
      )
     await create.commit()
     return
+
 
 def hash_password(password: str):
     encode_pass = password.encode('utf-8')
@@ -33,4 +40,46 @@ async def user_login(login: UserLogin):
     result = bcrypt.checkpw(encode_pass, check_pass)
     if not result: 
         raise ErrorResponseException(data='Wrong username or password !')
-    return {'message': "login success"}
+    token = await generate_token(login.username)
+    return {'token': token}
+
+
+async def generate_token(username: str):
+    expire = datetime.utcnow() + timedelta(seconds=60 * 60 * 24 * 3)
+    to_encode = {"exp": expire, "username": username}
+    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.SECURITY_ALGORITHM)
+    return encoded_jwt
+
+
+async def create_profile(request: RequestUserProfile):
+    check_email = await User.find_one({'email': request.email})
+    if not check_email:
+        raise ErrorResponseException(data='not found user')
+    check_create_profile = await UserProfile.find_one({'email': request.email})
+    if check_create_profile:
+        raise ErrorResponseException(data='User profile already exists')
+    create = UserProfile(**request.dict())
+    await create.commit()
+    return
+
+
+async def get_profile():
+    profile = await UserProfile.find().to_list(None)
+    return [data.dump() for data in profile]
+
+
+async def update_profile(request: RequestUserProfile):
+    check_email = await UserProfile.find_one({'email': request.email})
+    if not check_email:
+        raise ErrorResponseException(data='not found user')
+    check_email.update(request.dict())
+    await check_email.commit()
+    return check_email.dump()
+
+
+async def delete_profile(request: DeletetProfile):
+    check_email = await UserProfile.find_one({'email': request.email})
+    if not check_email:
+        raise ErrorResponseException(data='not found user')
+    await check_email.delete()
+    return
