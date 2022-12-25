@@ -2,17 +2,20 @@
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
-
+from celery import Celery
 from src.events import shutdown_event, startup_event
 from src.middlewares import middleware
 
 from .exceptions import ErrorResponseException
 from .routers import list_router
+from src.celery.setup_celery import celery_app
 
 app = FastAPI(
-    middleware=middleware, on_startup=startup_event, on_shutdown=shutdown_event
+    middleware=middleware,
+    on_startup=startup_event,
+    on_shutdown=shutdown_event,
+    celery = celery_app
 )
-
 
 app.include_router(list_router)
 
@@ -32,3 +35,8 @@ async def response_exception_handler(request: Request, exc: ErrorResponseExcepti
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     return PlainTextResponse(str(exc), status_code=400)
+
+
+@app.get('/')
+async def index():
+    return {'well come to app'}
