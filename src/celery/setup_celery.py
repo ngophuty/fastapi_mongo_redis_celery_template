@@ -31,7 +31,7 @@ def wellcome():
 
 celery_app.conf.beat_schedule = {
     'wellcome': {
-        'task': 'src.celery.setup_celery.wellcome',
+        'task': 'wellcome',
         'schedule': crontab()
     },
 }
